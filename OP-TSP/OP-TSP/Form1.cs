@@ -20,7 +20,7 @@ namespace OP_TSP
             List<Point> points = new List<Point>();
 
             using (System.IO.StreamWriter file =
-           new System.IO.StreamWriter(@"C:\Users\darek\Desktop\100.txt"))
+           new System.IO.StreamWriter(@"C:\TSP\100.txt"))
             {
                 Random random = new Random();
                 file.WriteLine("100");
