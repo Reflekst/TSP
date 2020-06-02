@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OP_TSP.Models
 {
-    public class GeneticModel
+    public class AlgorithmModel
     {
         public List<int> Path { get; set; }
         public double Distance { get; set; }

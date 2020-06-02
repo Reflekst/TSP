@@ -14,6 +14,9 @@ namespace OP_TSP
     {
         public Result Start(string filePath)
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             Result result = new Result();
             List<Point> points = new List<Point>();
             List<Point> usedPoints = new List<Point>();
@@ -40,12 +43,10 @@ namespace OP_TSP
                 }
             }
 
-            Stopwatch stopwatch = new Stopwatch();
 
             double distance = 0;
             if (points.Count != 0)
             {
-                stopwatch.Start();
 
                 Point selectedPoint;
                 selectedPoint = points.FirstOrDefault();
@@ -79,12 +80,11 @@ namespace OP_TSP
 
 
 
-        public Result StartGeneticAlghoritm(string filePath)
+        public Result StartMetaheuristic(string filePath, int seconds)
         {
             Result result = new Result();
-            
             List<Point> points = new List<Point>();
-            
+
             bool firstLine = true;
             string[] lines = File.ReadAllLines(filePath, Encoding.UTF8);
 
@@ -129,190 +129,93 @@ namespace OP_TSP
                     }
                 }
             }
-            Stopwatch stopwatch = new Stopwatch();
 
 
-            List<GeneticModel> geneticModels = new List<GeneticModel>(); // tworzymy listę ścieżek do algoyrtmu genetycznego
-            Random random = new Random();
-           
-            int selectedPoint = int.Parse(points.FirstOrDefault().Id);
-            for (int i = 0; i < 50; i++) // będzie ich 50
+            Result greedyResult = Start(filePath);
+
+
+            AlgorithmModel workingPath = new AlgorithmModel()
             {
-                GeneticModel geneticModel = new GeneticModel();
-                geneticModel.Path = new List<int>();
-                geneticModel.Distance = 0;
-                while (geneticModel.Path.Count < points.Count - 1)
-                {
-                    int randomId = random.Next(2, points.Count + 1);
-                    if (!geneticModel.Path.Contains(randomId)) // jeżeli nie ma na ścieżce danej ścieżki, zapisujemy ją do listy
-                    {
-                        geneticModel.Path.Add(randomId);
-                        geneticModel.Distance += pointsDistances[selectedPoint, randomId]; // szybka opcja dostania dystansu między punktami
-                        selectedPoint = randomId;
-                    }
-                }
-                geneticModel.Distance += pointsDistances[int.Parse(points.FirstOrDefault().Id), selectedPoint];
-                geneticModels.Add(geneticModel);// dodajemy do listy
+                Path = new List<int>()
+            };
+
+            foreach(Point point in greedyResult.SortPoints)
+            {
+                workingPath.Path.Add(int.Parse(point.Id));
             }
 
+            workingPath.Path.Add(1);
+            workingPath.Distance = CalculateTotalDistance(workingPath, pointsDistances);
 
-
-            for (int i = 1; i <=2; i++) // ALGORYTM GENETYCZNY
+            AlgorithmModel bestPath = new AlgorithmModel()
             {
-                int firstIndex = 0;
-                int secondIndex = 0;
-                for (int j = 0; j < 15; j++)
+                Path = new List<int>(),
+                Distance = workingPath.Distance
+            };
+            bestPath.Path.AddRange(workingPath.Path);
+
+            Stopwatch stopwatch = new Stopwatch(); // stopwatch liczący czas pracy
+            stopwatch.Start();
+            //while ((stopwatch2.ElapsedMilliseconds/1000) < 180)
+            //ALGORYTM 2-OPT
+            double bestDistance = workingPath.Distance;
+            while (stopwatch.ElapsedMilliseconds/1000 < 120)
+            // jak długo ma działać i tu jest myk, że jak znajdzie mozliwie najlepszy to ciągle bez zastanowienia leci przez funkcje FOR, dlatego mozęmy zrobic na kilku co ulepszy algorytm
+            {
+                startagain:
+                for (int i = 1; i <= workingPath.Path.Count - 1; i++)
                 {
-                    while (firstIndex == secondIndex) // wybieramy dwie różne ścieżki
+                    for (int k = i + 1; k <= workingPath.Path.Count - 2; k++)
                     {
-                        firstIndex = random.Next(1, geneticModels.Count);
-                        secondIndex = random.Next(1, geneticModels.Count);
-                    }
-
-                    GeneticModel firstGeneticModel = geneticModels[firstIndex];
-                    GeneticModel secondGeneticModel = geneticModels[secondIndex];
-                    List<int> newPath = new List<int>();
-
-                    for (int k = 0; k <= 59; k++) // bierzemy 60 punktów z pierwszego
-                    {
-                        newPath.Add(firstGeneticModel.Path[k]);
-                    }
-
-                    for (int k = 0; k < secondGeneticModel.Path.Count; k++) // z drugiego dopisujemy po kolei te, których nie ma
-                    {
-                        if (!newPath.Contains(secondGeneticModel.Path[k]))
+                        AlgorithmModel new_route = optSwap(workingPath, i, k);
+                        // pobieramy indexy, między którymi ma nastąpic odwrócenie ścieżki i obracamy, potem obliczamy dystans
+                        new_route.Distance = CalculateTotalDistance(new_route, pointsDistances);
+                        if (new_route.Distance < bestDistance)
+                        // jeżeli nowy dystans jest lepszy to zapisujemy go i zaczynamy wszystko od nowa skacząc do startAgain:, jak nie leci przez iterację dalej
                         {
-                            newPath.Add(secondGeneticModel.Path[k]);
+                            workingPath = new_route;
+                            bestDistance = new_route.Distance;
+                            result.Distance = bestDistance;
+                            result.PointsCount = new_route.Path.Count;
+                            goto startagain;
+
                         }
                     }
 
-                    double distance = 0;
-                    // oblcizamy dystans nowej ścieżki
-                    int index = 1;
-
-                    foreach (int pathIndex in newPath)
-                    {
-                        distance += pointsDistances[index, pathIndex];
-                        index = pathIndex;
-                    }
-
-                    distance += pointsDistances[1, index]; 
-                    //dodajemy tak 15 razy
-                    geneticModels.Add(new GeneticModel()
-                    {
-                        Path = newPath,
-                        Distance = distance
-                    });
-
+                    //trzeba zrobić, że jak nie znajduje lepszego, to kończy ale to zorbimy przy następnej próbie razem
+                    //dlatego jak zobaczy,y czasochłonność będzie można dostosować ilośc przerabianych ścieżek do mocyh obliczeniowej kompa
                 }
 
-                for (int l = 1; l < 30; l++) // Mutacja 
+                if(workingPath.Distance < bestPath.Distance)
                 {
-                    GeneticModel mutationModel = geneticModels[geneticModels.Count - l];
-                    for (int j = 0; j < 2; j++)
-                    {
-                        firstIndex = 0;
-                        secondIndex = 0;
-                        while (firstIndex == secondIndex)
-                        {
-                            firstIndex = random.Next(1, geneticModels.Count);
-                            secondIndex = random.Next(1, geneticModels.Count);
-                        }
-                        int temp = mutationModel.Path[firstIndex]; // zamiana miejscami dwóch punktów
-                        mutationModel.Path[firstIndex] = mutationModel.Path[secondIndex];
-                        mutationModel.Path[secondIndex] = temp;
-
-                        double distance = 0;
-                        //znowu oblicza odległość
-                        int index = 1;
-
-                        foreach (int pathIndex in mutationModel.Path)
-                        {
-                            distance += pointsDistances[index, pathIndex];
-                            index = pathIndex;
-                        }
-
-                        distance += pointsDistances[1, index];
-                        mutationModel.Distance = distance;
-                    }
+                    bestPath.Distance = workingPath.Distance;
+                    bestPath.Path.Clear();
+                    bestPath.Path.AddRange(workingPath.Path);
                 }
 
-                // sortujemy po dystansie i usuwamy 15 najgorszych
-                geneticModels = geneticModels.OrderBy(g => g.Distance).ToList();
-                for (int j = 64; j > 49; j--)
-                {
-                    geneticModels.RemoveAt(j);
-                }
+
+
 
             }
 
-            List<GeneticModel> tests = new List<GeneticModel>();
-            result.Distance = geneticModels.Min(g => g.Distance);
-            //przeprowadzamy badanie dla igm ilosci modeli i potem wybieramy najlepszy
-            for (int igm = 0; igm < 2;igm++)
-            {
-                var existingPath1 = geneticModels[igm];
-                var existingPath = new GeneticModel();
 
-                existingPath.Path = new List<int>();
-                existingPath.Path.Add(1);
-                existingPath.Path.AddRange(existingPath1.Path);
-                existingPath.Path.Add(1);
-                //obliczamy dystans
-                double bestDistance = CalculateTotalDistance(existingPath, pointsDistances);
-
-                Stopwatch stopwatch2 = new Stopwatch(); // stopwatch liczący czas pracy
-                stopwatch2.Start();
-                //while ((stopwatch2.ElapsedMilliseconds/1000) < 180)
-                //ALGORYTM 2-OPT
-                bool isTrying = true;
-                while (isTrying)
-                    // jak długo ma działać i tu jest myk, że jak znajdzie mozliwie najlepszy to ciągle bez zastanowienia leci przez funkcje FOR, dlatego mozęmy zrobic na kilku co ulepszy algorytm
-                {
-                    startagain:
-                    for (int i = 1; i <= existingPath.Path.Count - 1; i++)
-                    {
-                        for (int k = i + 1; k <= existingPath.Path.Count - 2; k++)
-                        {
-                            GeneticModel new_route = optSwap(existingPath, i, k);
-                                // pobieramy indexy, między którymi ma nastąpic odwrócenie ścieżki i obracamy, potem obliczamy dystans
-                            new_route.Distance = CalculateTotalDistance(new_route, pointsDistances);
-                            if (new_route.Distance < bestDistance)
-                                // jeżeli nowy dystans jest lepszy to zapisujemy go i zaczynamy wszystko od nowa skacząc do startAgain:, jak nie leci przez iterację dalej
-                            {
-                                existingPath = new_route;
-                                 bestDistance = new_route.Distance;
-                                result.Distance = bestDistance;
-                                result.PointsCount = new_route.Path.Count;
-                                goto startagain;
-
-                            }
-                        }
-                        //trzeba zrobić, że jak nie znajduje lepszego, to kończy ale to zorbimy przy następnej próbie razem
-                        //dlatego jak zobaczy,y czasochłonność będzie można dostosować ilośc przerabianych ścieżek do mocyh obliczeniowej kompa
-                    }
-                    tests.Add(existingPath);
-                    isTrying = false;
-                }
-            }
-
-            // zwracamy wynik
-            var min = tests.Min(t => t.Distance);
-            var bestPath = tests.FirstOrDefault(g => g.Distance == min);
-            result.SortPoints = new List<Point>();
-            for (int i = 0; i < bestPath.Path.Count - 1; i++)
-            {
-                result.SortPoints.Add(points.FirstOrDefault(p => p.Id == bestPath.Path[i].ToString()));
-            }
-            result.PointsCount = bestPath.Path.Count - 1;
-            result.Distance = min;
+            //// zwracamy wynik
+            //var min = tests.Min(t => t.Distance);
+            //var bestPath = tests.FirstOrDefault(g => g.Distance == min);
+            //result.SortPoints = new List<Point>();
+            //for (int i = 0; i < bestPath.Path.Count - 1; i++)
+            //{
+            //    result.SortPoints.Add(points.FirstOrDefault(p => p.Id == bestPath.Path[i].ToString()));
+            //}
+            //result.PointsCount = bestPath.Path.Count - 1;
+            //result.Distance = min;
             return result;
         }
 
 
-        private GeneticModel optSwap(GeneticModel geneticModel, int ic, int kc)
+        private AlgorithmModel optSwap(AlgorithmModel geneticModel, int ic, int kc)
         {
-            GeneticModel newGeneticModel = new GeneticModel()
+            AlgorithmModel newGeneticModel = new AlgorithmModel()
             {
                 Path = new List<int>()
             };
@@ -335,7 +238,7 @@ namespace OP_TSP
             return newGeneticModel;
         }
 
-        private double CalculateTotalDistance(GeneticModel geneticModel, double[,] pointsDistances)
+        private double CalculateTotalDistance(AlgorithmModel geneticModel, double[,] pointsDistances)
         {
             double distance = 0;
             for (int i = 0; i < geneticModel.Path.Count - 1; i++)

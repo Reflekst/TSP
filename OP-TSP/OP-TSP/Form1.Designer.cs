@@ -41,16 +41,18 @@
             this.label4 = new System.Windows.Forms.Label();
             this.distance = new System.Windows.Forms.TextBox();
             this.mainAlgorithm = new System.Windows.Forms.Button();
+            this.workTimeTextBox = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(36, 33);
+            this.label1.Location = new System.Drawing.Point(72, 36);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(194, 38);
+            this.label1.Size = new System.Drawing.Size(160, 31);
             this.label1.TabIndex = 0;
             this.label1.Text = "Wybierz plik";
             // 
@@ -58,10 +60,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(75, 204);
+            this.label2.Location = new System.Drawing.Point(74, 261);
             this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(165, 29);
+            this.label2.Size = new System.Drawing.Size(129, 24);
             this.label2.TabIndex = 1;
             this.label2.Text = "Ilość punktów:";
             // 
@@ -69,17 +71,17 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.Location = new System.Drawing.Point(168, 287);
+            this.label3.Location = new System.Drawing.Point(167, 344);
             this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(72, 29);
+            this.label3.Size = new System.Drawing.Size(56, 24);
             this.label3.TabIndex = 2;
             this.label3.Text = "Czas:";
             // 
             // startAlgorithmButton
             // 
             this.startAlgorithmButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.startAlgorithmButton.Location = new System.Drawing.Point(43, 96);
+            this.startAlgorithmButton.Location = new System.Drawing.Point(42, 153);
             this.startAlgorithmButton.Margin = new System.Windows.Forms.Padding(6);
             this.startAlgorithmButton.Name = "startAlgorithmButton";
             this.startAlgorithmButton.Size = new System.Drawing.Size(572, 45);
@@ -94,7 +96,7 @@
             this.filePathTextBox.Location = new System.Drawing.Point(242, 38);
             this.filePathTextBox.Margin = new System.Windows.Forms.Padding(6);
             this.filePathTextBox.Name = "filePathTextBox";
-            this.filePathTextBox.Size = new System.Drawing.Size(254, 34);
+            this.filePathTextBox.Size = new System.Drawing.Size(254, 28);
             this.filePathTextBox.TabIndex = 4;
             // 
             // findFileButton
@@ -112,57 +114,57 @@
             // pointsTextBox
             // 
             this.pointsTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.pointsTextBox.Location = new System.Drawing.Point(242, 201);
+            this.pointsTextBox.Location = new System.Drawing.Point(241, 258);
             this.pointsTextBox.Margin = new System.Windows.Forms.Padding(6);
             this.pointsTextBox.Name = "pointsTextBox";
             this.pointsTextBox.ReadOnly = true;
-            this.pointsTextBox.Size = new System.Drawing.Size(373, 34);
+            this.pointsTextBox.Size = new System.Drawing.Size(373, 28);
             this.pointsTextBox.TabIndex = 6;
             // 
             // TimeTextBox
             // 
             this.TimeTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.TimeTextBox.Location = new System.Drawing.Point(242, 287);
+            this.TimeTextBox.Location = new System.Drawing.Point(241, 344);
             this.TimeTextBox.Margin = new System.Windows.Forms.Padding(6);
             this.TimeTextBox.Name = "TimeTextBox";
             this.TimeTextBox.ReadOnly = true;
-            this.TimeTextBox.Size = new System.Drawing.Size(373, 34);
+            this.TimeTextBox.Size = new System.Drawing.Size(373, 28);
             this.TimeTextBox.TabIndex = 7;
             // 
             // pointsList
             // 
             this.pointsList.FormattingEnabled = true;
-            this.pointsList.ItemHeight = 31;
-            this.pointsList.Location = new System.Drawing.Point(240, 330);
+            this.pointsList.ItemHeight = 26;
+            this.pointsList.Location = new System.Drawing.Point(239, 387);
             this.pointsList.Name = "pointsList";
-            this.pointsList.Size = new System.Drawing.Size(375, 376);
+            this.pointsList.Size = new System.Drawing.Size(375, 368);
             this.pointsList.TabIndex = 8;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(137, 247);
+            this.label4.Location = new System.Drawing.Point(136, 304);
             this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(103, 29);
+            this.label4.Size = new System.Drawing.Size(80, 24);
             this.label4.TabIndex = 11;
             this.label4.Text = "Dystans:";
             // 
             // distance
             // 
             this.distance.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.distance.Location = new System.Drawing.Point(242, 244);
+            this.distance.Location = new System.Drawing.Point(241, 301);
             this.distance.Margin = new System.Windows.Forms.Padding(6);
             this.distance.Name = "distance";
             this.distance.ReadOnly = true;
-            this.distance.Size = new System.Drawing.Size(373, 34);
+            this.distance.Size = new System.Drawing.Size(373, 28);
             this.distance.TabIndex = 12;
             // 
             // mainAlgorithm
             // 
             this.mainAlgorithm.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.mainAlgorithm.Location = new System.Drawing.Point(43, 153);
+            this.mainAlgorithm.Location = new System.Drawing.Point(42, 210);
             this.mainAlgorithm.Margin = new System.Windows.Forms.Padding(6);
             this.mainAlgorithm.Name = "mainAlgorithm";
             this.mainAlgorithm.Size = new System.Drawing.Size(572, 45);
@@ -171,11 +173,33 @@
             this.mainAlgorithm.UseVisualStyleBackColor = true;
             this.mainAlgorithm.Click += new System.EventHandler(this.mainAlgorithm_Click);
             // 
+            // workTimeTextBox
+            // 
+            this.workTimeTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.workTimeTextBox.Location = new System.Drawing.Point(242, 90);
+            this.workTimeTextBox.Margin = new System.Windows.Forms.Padding(6);
+            this.workTimeTextBox.Name = "workTimeTextBox";
+            this.workTimeTextBox.Size = new System.Drawing.Size(254, 28);
+            this.workTimeTextBox.TabIndex = 15;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label5.Location = new System.Drawing.Point(-3, 87);
+            this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(242, 31);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "Podaj czas trwania";
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 26F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(799, 709);
+            this.ClientSize = new System.Drawing.Size(799, 757);
+            this.Controls.Add(this.workTimeTextBox);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.mainAlgorithm);
             this.Controls.Add(this.distance);
             this.Controls.Add(this.label4);
@@ -212,6 +236,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox distance;
         private System.Windows.Forms.Button mainAlgorithm;
+        private System.Windows.Forms.TextBox workTimeTextBox;
+        private System.Windows.Forms.Label label5;
     }
 }
 
