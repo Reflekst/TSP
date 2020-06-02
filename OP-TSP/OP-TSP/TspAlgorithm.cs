@@ -175,10 +175,7 @@ namespace OP_TSP
                         {
                             workingPath = new_route;
                             bestDistance = new_route.Distance;
-                            result.Distance = bestDistance;
-                            result.PointsCount = new_route.Path.Count;
                             goto startagain;
-
                         }
                     }
                     //koniec czasu - zakończ pracę
@@ -233,10 +230,8 @@ namespace OP_TSP
             result.Distance = bestPath.Distance;
             result.Time = stopwatch.ElapsedMilliseconds;
             result.SortPoints = new List<Point>();
-            result.PointsCount = bestPath.Path.Count - 1;
+            //result.PointsCount = bestPath.Path.Count - 1;
 
-            var x = bestPath.Path.GroupBy(g => g).Select(s => s.ToList()).ToList().Where(t => t.Count > 1).ToList();
-            var x2 = bestPath.Path.GroupBy(g => g).Select(s => s.ToList()).ToList();
 
             foreach (int id in bestPath.Path)
             {
