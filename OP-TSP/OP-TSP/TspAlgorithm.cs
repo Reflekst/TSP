@@ -80,8 +80,10 @@ namespace OP_TSP
 
 
 
-        public Result StartMetaheuristic(string filePath, int seconds)
+        public Result StartMetaheuristic(string filePath, int limitSeconds)
         {
+            Stopwatch stopwatch = new Stopwatch(); // stopwatch liczący czas pracy
+            stopwatch.Start();
             Result result = new Result();
             List<Point> points = new List<Point>();
 
@@ -139,7 +141,7 @@ namespace OP_TSP
                 Path = new List<int>()
             };
 
-            foreach(Point point in greedyResult.SortPoints)
+            foreach (Point point in greedyResult.SortPoints)
             {
                 workingPath.Path.Add(int.Parse(point.Id));
             }
@@ -154,15 +156,14 @@ namespace OP_TSP
             };
             bestPath.Path.AddRange(workingPath.Path);
 
-            Stopwatch stopwatch = new Stopwatch(); // stopwatch liczący czas pracy
-            stopwatch.Start();
+            
             //while ((stopwatch2.ElapsedMilliseconds/1000) < 180)
             //ALGORYTM 2-OPT
             double bestDistance = workingPath.Distance;
-            while (stopwatch.ElapsedMilliseconds/1000 < 120)
-            // jak długo ma działać i tu jest myk, że jak znajdzie mozliwie najlepszy to ciągle bez zastanowienia leci przez funkcje FOR, dlatego mozęmy zrobic na kilku co ulepszy algorytm
+            int workSeconds = 0;
+            while (workSeconds < limitSeconds)
             {
-                startagain:
+            startagain:
                 for (int i = 1; i <= workingPath.Path.Count - 1; i++)
                 {
                     for (int k = i + 1; k <= workingPath.Path.Count - 2; k++)
@@ -184,31 +185,62 @@ namespace OP_TSP
 
                     //trzeba zrobić, że jak nie znajduje lepszego, to kończy ale to zorbimy przy następnej próbie razem
                     //dlatego jak zobaczy,y czasochłonność będzie można dostosować ilośc przerabianych ścieżek do mocyh obliczeniowej kompa
+
                 }
 
-                if(workingPath.Distance < bestPath.Distance)
+                if (workingPath.Distance < bestPath.Distance)
                 {
                     bestPath.Distance = workingPath.Distance;
                     bestPath.Path.Clear();
                     bestPath.Path.AddRange(workingPath.Path);
                 }
 
+                Random random = new Random();
+                int firstIndex = 0;
+                List<int> indexInts = new List<int>();
+                while (indexInts.Count != 4)
+                {
+                    firstIndex = random.Next(1, workingPath.Path.Count - 1);
+                    if (!indexInts.Contains(firstIndex))
+                    {
+                        indexInts.Add(firstIndex);
+                    }
+                }
+                workingPath.Path.Clear();
+                workingPath.Path.AddRange(bestPath.Path);
+                int temp1 = workingPath.Path[indexInts[0]];
+                int temp2 = workingPath.Path[indexInts[1]];
+                int temp3 = workingPath.Path[indexInts[2]];
+                int temp4 = workingPath.Path[indexInts[3]];
+                workingPath.Path[indexInts[0]] = temp3;
+                workingPath.Path[indexInts[2]] = temp1;
+                workingPath.Path[indexInts[1]] = temp4;
+                workingPath.Path[indexInts[3]] = temp2;
+                workingPath.Distance = CalculateTotalDistance(workingPath, pointsDistances);
+                bestDistance = workingPath.Distance;
+                workSeconds = (int)stopwatch.ElapsedMilliseconds / 1000;
 
-
-
+                if (workSeconds > limitSeconds)
+                {
+                    break;
+                }
+                goto startagain;
             }
 
 
-            //// zwracamy wynik
-            //var min = tests.Min(t => t.Distance);
-            //var bestPath = tests.FirstOrDefault(g => g.Distance == min);
-            //result.SortPoints = new List<Point>();
-            //for (int i = 0; i < bestPath.Path.Count - 1; i++)
-            //{
-            //    result.SortPoints.Add(points.FirstOrDefault(p => p.Id == bestPath.Path[i].ToString()));
-            //}
-            //result.PointsCount = bestPath.Path.Count - 1;
-            //result.Distance = min;
+            result.Distance = bestPath.Distance;
+            result.Time = stopwatch.ElapsedMilliseconds;
+            result.SortPoints = new List<Point>();
+            result.PointsCount = bestPath.Path.Count - 1;
+
+            var x = bestPath.Path.GroupBy(g => g).Select(s => s.ToList()).ToList().Where(t => t.Count > 1).ToList();
+            var x2 = bestPath.Path.GroupBy(g => g).Select(s => s.ToList()).ToList();
+
+            foreach (int id in bestPath.Path)
+            {
+                result.SortPoints.Add(points.FirstOrDefault(p => p.Id == id.ToString()));
+            }
+
             return result;
         }
 
