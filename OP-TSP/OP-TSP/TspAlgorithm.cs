@@ -113,7 +113,7 @@ namespace OP_TSP
 
             for (int i = 1; i <= points.Count; i++)
             {
-                for (int j = 1; j < points.Count; j++)
+                for (int j = 1; j <= points.Count; j++)
                 {
                     if (i != j)
                     {
@@ -216,10 +216,12 @@ namespace OP_TSP
                 int temp2 = workingPath.Path[indexInts[1]];
                 int temp3 = workingPath.Path[indexInts[2]];
                 int temp4 = workingPath.Path[indexInts[3]];
+
                 workingPath.Path[indexInts[0]] = temp3;
                 workingPath.Path[indexInts[2]] = temp1;
                 workingPath.Path[indexInts[1]] = temp4;
                 workingPath.Path[indexInts[3]] = temp2;
+
                 workingPath.Distance = CalculateTotalDistance(workingPath, pointsDistances);
                 bestDistance = workingPath.Distance;
                 //Zaczynamy od początku
