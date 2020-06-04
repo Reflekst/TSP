@@ -113,7 +113,7 @@ namespace OP_TSP
 
             for (int i = 1; i <= points.Count; i++)
             {
-                for (int j = 1; j < points.Count; j++)
+                for (int j = 1; j <= points.Count; j++)
                 {
                     if (i != j)
                     {

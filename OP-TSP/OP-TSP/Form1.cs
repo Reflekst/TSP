@@ -17,33 +17,6 @@ namespace OP_TSP
         public Form1()
         {
             InitializeComponent();
-            List<Point> points = new List<Point>();
-
-           // using (System.IO.StreamWriter file =
-           //new System.IO.StreamWriter(@"C:\TSP\100.txt"))
-           // {
-           //     Random random = new Random();
-           //     file.WriteLine("100");
-           //     int Id = 1;
-           //     while (points.Count < 100)
-           //     {
-           //         int x = random.Next(0, 40000);
-           //         int y = random.Next(0, 40000);
-           //         if (points.FirstOrDefault(p => p.X == x && p.Y == y) == null)
-           //         {
-           //             Point point = new Point()
-           //             {
-           //                 Id = Id.ToString(),
-           //                 X = x,
-           //                 Y = y
-           //             };
-           //             points.Add(point);
-           //             file.WriteLine(point.Id + " " + point.X + " " + point.Y);
-           //             Id++;
-           //         }
-           //     }
-           // }
-
         }
 
 
@@ -135,6 +108,43 @@ namespace OP_TSP
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            int liczbap = int.Parse(Liczbap.Text);
+            List < Point > points = new List<Point>();
+
+            using (System.IO.StreamWriter file =
+            new System.IO.StreamWriter("TSP.txt"))
+            {
+                Random random = new Random();
+                file.WriteLine(liczbap.ToString());
+                int Id = 1;
+                while (points.Count < liczbap)
+                {
+                    int x = random.Next(0, 40000);
+                    int y = random.Next(0, 40000);
+                    if (points.FirstOrDefault(p => p.X == x && p.Y == y) == null)
+                    {
+                        Point point = new Point()
+                        {
+                            Id = Id.ToString(),
+                            X = x,
+                            Y = y
+                        };
+                        points.Add(point);
+                        file.WriteLine(point.Id + " " + point.X + " " + point.Y);
+                        Id++;
+                    }
+                }
+            }
+        }
+
+        private void pointsList_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
