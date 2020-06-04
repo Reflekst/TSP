@@ -134,7 +134,7 @@ namespace OP_TSP
 
 
             Result greedyResult = Start(filePath);
-            result.GreedyDistance = greedyResult.Distance;
+            result.GreedyDistance = greedyResult.GreedyDistance;
 
             AlgorithmModel workingPath = new AlgorithmModel()
             {
