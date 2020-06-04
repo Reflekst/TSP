@@ -58,9 +58,17 @@ namespace OP_TSP
                     {
                         TspAlgorithm tspAlgorithm = new TspAlgorithm();
                         Result result = tspAlgorithm.StartMetaheuristic(filePathTextBox.Text,seconds);
-                        TimeTextBox.Text = result.Time.ToString() + " ms";
+                        if (result.Time >= 1000)
+                        {
+                            TimeTextBox.Text = ((double)result.Time / 1000).ToString() + " s";
+                        }
+                        else
+                        {
+                            TimeTextBox.Text = result.Time.ToString() + " ms";
+                        }
                         pointsTextBox.Text = result.PointsCount.ToString();
                         distance.Text = result.Distance.ToString();
+                        distanceGreedy.Text = result.GreedyDistance.ToString();
                         if (result.SortPoints != null)
                         {
                             foreach (Point point in result.SortPoints)
@@ -92,7 +100,7 @@ namespace OP_TSP
                 Result result = tspAlgorithm.Start(filePathTextBox.Text);
                 TimeTextBox.Text = result.Time.ToString() + " ms";
                 pointsTextBox.Text = result.PointsCount.ToString();
-                distance.Text = result.Distance.ToString();
+                distanceGreedy.Text = result.GreedyDistance.ToString();
                 if (result.SortPoints != null)
                 {
                     foreach (Point point in result.SortPoints)
