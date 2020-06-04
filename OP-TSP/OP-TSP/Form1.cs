@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -115,16 +116,17 @@ namespace OP_TSP
         private void button1_Click(object sender, EventArgs e)
         {
 
-            int liczbap = int.Parse(Liczbap.Text);
+            int pointsCount = int.Parse(Liczbap.Text);
             List < Point > points = new List<Point>();
+            string path = String.Format("TSP_{0}.txt", pointsCount);
 
             using (System.IO.StreamWriter file =
-            new System.IO.StreamWriter("TSP.txt"))
+            new System.IO.StreamWriter(path))
             {
                 Random random = new Random();
-                file.WriteLine(liczbap.ToString());
+                file.WriteLine(pointsCount.ToString());
                 int Id = 1;
-                while (points.Count < liczbap)
+                while (points.Count < pointsCount)
                 {
                     int x = random.Next(0, 40000);
                     int y = random.Next(0, 40000);
