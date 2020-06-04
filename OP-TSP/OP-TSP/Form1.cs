@@ -48,16 +48,16 @@ namespace OP_TSP
                 int seconds = 0;
                 try
                 {
-                    
+
                     seconds = int.Parse(workTimeTextBox.Text);
-                    if(seconds<1)
+                    if (seconds < 1)
                     {
                         MessageBox.Show("Czas trwania musi być liczba naturalną!");
                     }
                     else
                     {
                         TspAlgorithm tspAlgorithm = new TspAlgorithm();
-                        Result result = tspAlgorithm.StartMetaheuristic(filePathTextBox.Text,seconds);
+                        Result result = tspAlgorithm.StartMetaheuristic(filePathTextBox.Text, seconds);
                         if (result.Time >= 1000)
                         {
                             TimeTextBox.Text = ((double)result.Time / 1000).ToString() + " s";
@@ -68,6 +68,7 @@ namespace OP_TSP
                         }
                         pointsTextBox.Text = result.PointsCount.ToString();
                         distance.Text = result.Distance.ToString();
+                        pointsList.Items.Clear();
                         distanceGreedy.Text = result.GreedyDistance.ToString();
                         if (result.SortPoints != null)
                         {
@@ -77,9 +78,9 @@ namespace OP_TSP
                             }
                         }
                     }
-                    
+
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show("Czas trwania musi być liczba naturalną!");
 
@@ -101,8 +102,10 @@ namespace OP_TSP
                 TimeTextBox.Text = result.Time.ToString() + " ms";
                 pointsTextBox.Text = result.PointsCount.ToString();
                 distanceGreedy.Text = result.GreedyDistance.ToString();
+                distance.Text = "";
                 if (result.SortPoints != null)
                 {
+                    result.SortPoints.Add(result.SortPoints.FirstOrDefault());
                     foreach (Point point in result.SortPoints)
                     {
                         pointsList.Items.Add(string.Format("Id - {0}, X - {1}, Y - {2}", point.Id, point.X, point.Y));
@@ -125,7 +128,7 @@ namespace OP_TSP
         {
 
             int pointsCount = int.Parse(numberP.Text);
-            List < Point > points = new List<Point>();
+            List<Point> points = new List<Point>();
             string path = String.Format("TSP_{0}.txt", pointsCount);
 
             using (System.IO.StreamWriter file =
