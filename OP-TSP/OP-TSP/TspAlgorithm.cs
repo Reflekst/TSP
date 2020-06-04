@@ -74,7 +74,7 @@ namespace OP_TSP
                 usedPoints.FirstOrDefault().X, usedPoints.FirstOrDefault().Y);
             result.Time = stopwatch.ElapsedMilliseconds;
             result.SortPoints = usedPoints;
-            result.Distance = distance;
+            result.GreedyDistance = distance;
             return result;
         }
 
@@ -134,7 +134,7 @@ namespace OP_TSP
 
 
             Result greedyResult = Start(filePath);
-
+            result.GreedyDistance = greedyResult.Distance;
 
             AlgorithmModel workingPath = new AlgorithmModel()
             {

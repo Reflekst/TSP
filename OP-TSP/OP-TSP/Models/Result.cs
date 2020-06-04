@@ -12,5 +12,6 @@ namespace OP_TSP.Models
         public decimal Time { get; set; }
         public List<Point> SortPoints { get; set; }
         public double Distance { get; set; }
+        public double GreedyDistance { get; set; }
     }
 }
