@@ -116,7 +116,7 @@ namespace OP_TSP
         private void button1_Click(object sender, EventArgs e)
         {
 
-            int pointsCount = int.Parse(Liczbap.Text);
+            int pointsCount = int.Parse(numberP.Text);
             List < Point > points = new List<Point>();
             string path = String.Format("TSP_{0}.txt", pointsCount);
 
