@@ -44,7 +44,7 @@
             this.workTimeTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Liczbap = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -142,6 +142,7 @@
             this.pointsList.Name = "pointsList";
             this.pointsList.Size = new System.Drawing.Size(763, 368);
             this.pointsList.TabIndex = 8;
+            this.pointsList.SelectedIndexChanged += new System.EventHandler(this.pointsList_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -204,14 +205,15 @@
             this.button1.TabIndex = 16;
             this.button1.Text = "Wygeneruj losowo punkty";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // textBox1
+            // Liczbap
             // 
-            this.textBox1.Location = new System.Drawing.Point(686, 15);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(96, 32);
-            this.textBox1.TabIndex = 17;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.Liczbap.Location = new System.Drawing.Point(686, 15);
+            this.Liczbap.Name = "Liczbap";
+            this.Liczbap.Size = new System.Drawing.Size(96, 32);
+            this.Liczbap.TabIndex = 17;
+            this.Liczbap.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label6
             // 
@@ -230,7 +232,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(799, 622);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.Liczbap);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.workTimeTextBox);
             this.Controls.Add(this.label5);
@@ -274,7 +276,7 @@
         private System.Windows.Forms.TextBox workTimeTextBox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox Liczbap;
         private System.Windows.Forms.Label label6;
     }
 }
