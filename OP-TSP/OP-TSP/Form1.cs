@@ -126,10 +126,11 @@ namespace OP_TSP
                 Random random = new Random();
                 file.WriteLine(pointsCount.ToString());
                 int Id = 1;
+                int range = int.Parse(rangeP.Text);
                 while (points.Count < pointsCount)
                 {
-                    int x = random.Next(0, 40000);
-                    int y = random.Next(0, 40000);
+                    int x = random.Next(0, range);
+                    int y = random.Next(0, range);
                     if (points.FirstOrDefault(p => p.X == x && p.Y == y) == null)
                     {
                         Point point = new Point()
@@ -144,9 +145,20 @@ namespace OP_TSP
                     }
                 }
             }
+            filePathTextBox.Text = path;
         }
 
         private void pointsList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void filePathTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void distanceGreedy_TextChanged(object sender, EventArgs e)
         {
 
         }

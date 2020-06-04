@@ -48,13 +48,15 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.distanceGreedy = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.rangeP = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(15, 9);
+            this.label1.Location = new System.Drawing.Point(15, 15);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(160, 31);
@@ -65,7 +67,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(471, 102);
+            this.label2.Location = new System.Drawing.Point(467, 167);
             this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(129, 24);
@@ -76,7 +78,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.Location = new System.Drawing.Point(471, 226);
+            this.label3.Location = new System.Drawing.Point(467, 292);
             this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(56, 24);
@@ -86,10 +88,10 @@
             // startAlgorithmButton
             // 
             this.startAlgorithmButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.startAlgorithmButton.Location = new System.Drawing.Point(21, 133);
+            this.startAlgorithmButton.Location = new System.Drawing.Point(21, 109);
             this.startAlgorithmButton.Margin = new System.Windows.Forms.Padding(6);
             this.startAlgorithmButton.Name = "startAlgorithmButton";
-            this.startAlgorithmButton.Size = new System.Drawing.Size(430, 45);
+            this.startAlgorithmButton.Size = new System.Drawing.Size(430, 100);
             this.startAlgorithmButton.TabIndex = 3;
             this.startAlgorithmButton.Text = "Rozpocznij pracę algorytmu zachłannego";
             this.startAlgorithmButton.UseVisualStyleBackColor = true;
@@ -98,11 +100,12 @@
             // filePathTextBox
             // 
             this.filePathTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.filePathTextBox.Location = new System.Drawing.Point(187, 15);
+            this.filePathTextBox.Location = new System.Drawing.Point(187, 19);
             this.filePathTextBox.Margin = new System.Windows.Forms.Padding(6);
             this.filePathTextBox.Name = "filePathTextBox";
             this.filePathTextBox.Size = new System.Drawing.Size(171, 28);
             this.filePathTextBox.TabIndex = 4;
+            this.filePathTextBox.TextChanged += new System.EventHandler(this.filePathTextBox_TextChanged);
             // 
             // findFileButton
             // 
@@ -110,7 +113,7 @@
             this.findFileButton.Location = new System.Drawing.Point(370, 15);
             this.findFileButton.Margin = new System.Windows.Forms.Padding(6);
             this.findFileButton.Name = "findFileButton";
-            this.findFileButton.Size = new System.Drawing.Size(81, 92);
+            this.findFileButton.Size = new System.Drawing.Size(81, 85);
             this.findFileButton.TabIndex = 5;
             this.findFileButton.Text = "Wyszukaj";
             this.findFileButton.UseVisualStyleBackColor = true;
@@ -119,30 +122,30 @@
             // pointsTextBox
             // 
             this.pointsTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.pointsTextBox.Location = new System.Drawing.Point(655, 98);
+            this.pointsTextBox.Location = new System.Drawing.Point(649, 164);
             this.pointsTextBox.Margin = new System.Windows.Forms.Padding(6);
             this.pointsTextBox.Name = "pointsTextBox";
             this.pointsTextBox.ReadOnly = true;
-            this.pointsTextBox.Size = new System.Drawing.Size(129, 28);
+            this.pointsTextBox.Size = new System.Drawing.Size(133, 28);
             this.pointsTextBox.TabIndex = 6;
             // 
             // TimeTextBox
             // 
             this.TimeTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.TimeTextBox.Location = new System.Drawing.Point(655, 222);
+            this.TimeTextBox.Location = new System.Drawing.Point(649, 289);
             this.TimeTextBox.Margin = new System.Windows.Forms.Padding(6);
             this.TimeTextBox.Name = "TimeTextBox";
             this.TimeTextBox.ReadOnly = true;
-            this.TimeTextBox.Size = new System.Drawing.Size(129, 28);
+            this.TimeTextBox.Size = new System.Drawing.Size(133, 28);
             this.TimeTextBox.TabIndex = 7;
             // 
             // pointsList
             // 
             this.pointsList.FormattingEnabled = true;
             this.pointsList.ItemHeight = 26;
-            this.pointsList.Location = new System.Drawing.Point(21, 281);
+            this.pointsList.Location = new System.Drawing.Point(21, 326);
             this.pointsList.Name = "pointsList";
-            this.pointsList.Size = new System.Drawing.Size(763, 368);
+            this.pointsList.Size = new System.Drawing.Size(761, 368);
             this.pointsList.TabIndex = 8;
             this.pointsList.SelectedIndexChanged += new System.EventHandler(this.pointsList_SelectedIndexChanged);
             // 
@@ -150,7 +153,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(471, 186);
+            this.label4.Location = new System.Drawing.Point(467, 249);
             this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(80, 24);
@@ -160,20 +163,20 @@
             // distance
             // 
             this.distance.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.distance.Location = new System.Drawing.Point(655, 182);
+            this.distance.Location = new System.Drawing.Point(649, 246);
             this.distance.Margin = new System.Windows.Forms.Padding(6);
             this.distance.Name = "distance";
             this.distance.ReadOnly = true;
-            this.distance.Size = new System.Drawing.Size(127, 28);
+            this.distance.Size = new System.Drawing.Size(133, 28);
             this.distance.TabIndex = 12;
             // 
             // mainAlgorithm
             // 
             this.mainAlgorithm.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.mainAlgorithm.Location = new System.Drawing.Point(21, 205);
+            this.mainAlgorithm.Location = new System.Drawing.Point(21, 221);
             this.mainAlgorithm.Margin = new System.Windows.Forms.Padding(6);
             this.mainAlgorithm.Name = "mainAlgorithm";
-            this.mainAlgorithm.Size = new System.Drawing.Size(430, 45);
+            this.mainAlgorithm.Size = new System.Drawing.Size(430, 96);
             this.mainAlgorithm.TabIndex = 13;
             this.mainAlgorithm.Text = "Rozpocznij pracę algorytmu zaawansowanego";
             this.mainAlgorithm.UseVisualStyleBackColor = true;
@@ -182,7 +185,7 @@
             // workTimeTextBox
             // 
             this.workTimeTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.workTimeTextBox.Location = new System.Drawing.Point(257, 79);
+            this.workTimeTextBox.Location = new System.Drawing.Point(257, 72);
             this.workTimeTextBox.Margin = new System.Windows.Forms.Padding(6);
             this.workTimeTextBox.Name = "workTimeTextBox";
             this.workTimeTextBox.Size = new System.Drawing.Size(101, 28);
@@ -192,7 +195,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label5.Location = new System.Drawing.Point(15, 76);
+            this.label5.Location = new System.Drawing.Point(15, 68);
             this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(242, 31);
@@ -201,9 +204,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(475, 51);
+            this.button1.Location = new System.Drawing.Point(467, 109);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(309, 38);
+            this.button1.Size = new System.Drawing.Size(315, 46);
             this.button1.TabIndex = 16;
             this.button1.Text = "Wygeneruj losowo punkty";
             this.button1.UseVisualStyleBackColor = true;
@@ -211,9 +214,9 @@
             // 
             // numberP
             // 
-            this.numberP.Location = new System.Drawing.Point(686, 15);
+            this.numberP.Location = new System.Drawing.Point(672, 10);
             this.numberP.Name = "numberP";
-            this.numberP.Size = new System.Drawing.Size(96, 32);
+            this.numberP.Size = new System.Drawing.Size(110, 32);
             this.numberP.TabIndex = 17;
             this.numberP.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -221,7 +224,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label6.Location = new System.Drawing.Point(475, 15);
+            this.label6.Location = new System.Drawing.Point(461, 11);
             this.label6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(202, 31);
@@ -232,7 +235,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label7.Location = new System.Drawing.Point(471, 142);
+            this.label7.Location = new System.Drawing.Point(467, 205);
             this.label7.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(174, 24);
@@ -242,18 +245,39 @@
             // distanceGreedy
             // 
             this.distanceGreedy.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.distanceGreedy.Location = new System.Drawing.Point(655, 142);
+            this.distanceGreedy.Location = new System.Drawing.Point(649, 202);
             this.distanceGreedy.Margin = new System.Windows.Forms.Padding(6);
             this.distanceGreedy.Name = "distanceGreedy";
             this.distanceGreedy.ReadOnly = true;
-            this.distanceGreedy.Size = new System.Drawing.Size(127, 28);
+            this.distanceGreedy.Size = new System.Drawing.Size(133, 28);
             this.distanceGreedy.TabIndex = 20;
+            this.distanceGreedy.TextChanged += new System.EventHandler(this.distanceGreedy_TextChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label8.Location = new System.Drawing.Point(461, 68);
+            this.label8.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(135, 31);
+            this.label8.TabIndex = 21;
+            this.label8.Text = "Zakres do";
+            // 
+            // rangeP
+            // 
+            this.rangeP.Location = new System.Drawing.Point(672, 67);
+            this.rangeP.Name = "rangeP";
+            this.rangeP.Size = new System.Drawing.Size(110, 32);
+            this.rangeP.TabIndex = 22;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 26F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(799, 715);
+            this.ClientSize = new System.Drawing.Size(799, 699);
+            this.Controls.Add(this.rangeP);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.distanceGreedy);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -305,6 +329,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox distanceGreedy;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox rangeP;
     }
 }
 
