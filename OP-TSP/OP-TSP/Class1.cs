@@ -9,15 +9,19 @@ namespace OP_TSP
 {
     class Class1
     {
-        using System.IO.File.WriteAllLines("TSP.txt", nic);
+        private static Random random = new Random();
+        string path = "TSP.txt";
+        StreamWreater sw    
+        if (!File.Exist(path))
+	{
+
+	}
         public int Id = 1;
-        public int p = 1;
-
-        
-        file.WriteLine(p);
-        int Id = 1;
-        while (points.Count< 100)
-
+        int p = 1;    
+        while (points.Count<p)
+        int x = random.Next(0, 40000);
+        int y = random.Next(0, 40000);
+    
     }
 }
 
