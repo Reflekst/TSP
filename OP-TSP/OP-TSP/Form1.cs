@@ -135,7 +135,7 @@ namespace OP_TSP
                 file.WriteLine(pointsCount.ToString());
                 int Id = 1;
                 while (points.Count < pointsCount)
-                {
+                 {
                     int x = random.Next(0, 40000);
                     int y = random.Next(0, 40000);
                     if (points.FirstOrDefault(p => p.X == x && p.Y == y) == null)
