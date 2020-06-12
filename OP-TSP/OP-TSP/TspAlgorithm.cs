@@ -111,27 +111,30 @@ namespace OP_TSP
 
             double[,] pointsDistances = new double[points.Count + 1, points.Count + 1]; // tworzymy tablice dwuwymiarową połączeń między punktami
 
-            for (int i = 1; i <= points.Count; i++)
-            {
-                for (int j = 1; j <= points.Count; j++)
+           
+
+           
+                for (int i = 1; i <= points.Count; i++)
                 {
-                    if (i != j)
+                    for (int j = 1; j <= points.Count; j++)
                     {
-                        if (pointsDistances[i, j] == 0) //punkt nie może wychodzić i wchodzić sam do siebie
+                        if (i != j)
                         {
-                            Point iPoint = points.FirstOrDefault(p => p.Id == i.ToString());
-                            Point jPoint = points.FirstOrDefault(p => p.Id == j.ToString());
+                            if (pointsDistances[i, j] == 0) //punkt nie może wychodzić i wchodzić sam do siebie
+                            {
+                                Point iPoint = points.FirstOrDefault(p => p.Id == i.ToString());
+                                Point jPoint = points.FirstOrDefault(p => p.Id == j.ToString());
 
-                            double distance = CountDistance(iPoint.X, iPoint.Y, jPoint.X, jPoint.Y); // obliczamy odległośc między punktami i zapisujemy w tablicy dla obu możliwości
+                                double distance = CountDistance(iPoint.X, iPoint.Y, jPoint.X, jPoint.Y); // obliczamy odległośc między punktami i zapisujemy w tablicy dla obu możliwości
 
-                            pointsDistances[i, j] = distance;
-                            pointsDistances[j, i] = distance;
+                                pointsDistances[i, j] = distance;
+                                pointsDistances[j, i] = distance;
 
+                            }
                         }
                     }
                 }
-            }
-
+            
 
             Result greedyResult = Start(filePath);
             result.GreedyDistance = greedyResult.GreedyDistance;
@@ -147,7 +150,12 @@ namespace OP_TSP
             }
 
             workingPath.Path.Add(1);
-            workingPath.Distance = CalculateTotalDistance(workingPath, pointsDistances);
+            
+       
+            {
+                workingPath.Distance = CalculateTotalDistance(workingPath, pointsDistances);
+            }
+           
 
             AlgorithmModel bestPath = new AlgorithmModel()
             {
@@ -177,25 +185,30 @@ namespace OP_TSP
                             bestDistance = new_route.Distance;
                             goto startagain;
                         }
+                        workSeconds = (int)stopwatch.ElapsedMilliseconds / 1000;
+                        if (workSeconds >= limitSeconds)
+                        {
+                            break;
+                        }
                     }
                     //koniec czasu - zakończ pracę
-                    workSeconds = (int)stopwatch.ElapsedMilliseconds / 1000;
                     if (workSeconds >= limitSeconds)
                     {
                         break;
                     }
                 }
-                if (workSeconds >= limitSeconds)
-                {
-                    break;
-                }
+                
                 if (workingPath.Distance < bestPath.Distance)
                 {
-                    bestPath.Distance = workingPath.Distance;
+                    bestPath.Distance = Math.Round(workingPath.Distance,2) ;
                     bestPath.Path.Clear();
                     bestPath.Path.AddRange(workingPath.Path);
                 }
 
+                if (workSeconds >= limitSeconds)
+                {
+                    break;
+                }
                 Random random = new Random();
                 int firstIndex = 0;
                 List<int> indexInts = new List<int>();
@@ -275,6 +288,19 @@ namespace OP_TSP
             for (int i = 0; i < geneticModel.Path.Count - 1; i++)
             {
                 distance += pointsDistances[geneticModel.Path[i], geneticModel.Path[i + 1]];
+            }
+
+            return distance;
+        }
+
+        private double CalculateTotalDistanceFromPoints(AlgorithmModel geneticModel, List<Point> points)
+        {
+            double distance = 0;
+            for (int i = 0; i < geneticModel.Path.Count - 1; i++)
+            {
+                Point firstPoint = points.FirstOrDefault(p => p.Id == geneticModel.Path[i].ToString());
+                Point secondPoint = points.FirstOrDefault(p => p.Id == geneticModel.Path[i + 1].ToString());
+                distance += CountDistance(firstPoint.X,firstPoint.Y,secondPoint.X,secondPoint.Y);
             }
 
             return distance;
